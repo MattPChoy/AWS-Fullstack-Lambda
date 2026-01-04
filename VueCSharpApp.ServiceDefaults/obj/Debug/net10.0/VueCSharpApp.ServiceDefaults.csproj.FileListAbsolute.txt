@@ -1,0 +1,12 @@
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\bin\Debug\net10.0\VueCSharpApp.ServiceDefaults.deps.json
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\bin\Debug\net10.0\VueCSharpApp.ServiceDefaults.dll
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\bin\Debug\net10.0\VueCSharpApp.ServiceDefaults.pdb
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\VueCSharpApp.ServiceDefaults.csproj.AssemblyReference.cache
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\VueCSharpApp.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\VueCSharpApp.ServiceDefaults.AssemblyInfoInputs.cache
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\VueCSharpApp.ServiceDefaults.AssemblyInfo.cs
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\VueCSharpApp.ServiceDefaults.csproj.CoreCompileInputs.cache
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\VueCSharpApp.ServiceDefaults.dll
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\refint\VueCSharpApp.ServiceDefaults.dll
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\VueCSharpApp.ServiceDefaults.pdb
+F:\GitProjects\AwsNodejs\VueCSharpApp.ServiceDefaults\obj\Debug\net10.0\ref\VueCSharpApp.ServiceDefaults.dll
