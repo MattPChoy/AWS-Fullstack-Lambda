@@ -4,19 +4,26 @@ using VueCSharpApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add Aspire service defaults
-builder.AddServiceDefaults();
+// Add Aspire service defaults for local development
+#if DEBUG
+if (!builder.Environment.IsProduction())
+{
+    builder.AddServiceDefaults();
+}
+#endif
+
+// Add AWS Lambda support
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
 
 // Add services to the container
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 
-// Configure CORS for Vue frontend
+// Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("VueApp", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+        policy.AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -31,23 +38,14 @@ builder.Services.AddSingleton<DynamoDbInitializer>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-app.UseCors("VueApp");
-app.UseHttpsRedirection();
-app.MapControllers();
-
-app.MapDefaultEndpoints();
-
-// Initialize DynamoDB table
+// Initialize DynamoDB tables
 using (var scope = app.Services.CreateScope())
 {
     var initializer = scope.ServiceProvider.GetRequiredService<DynamoDbInitializer>();
     await initializer.InitializeAsync();
 }
+
+app.UseCors("AllowAll");
+app.MapControllers();
 
 app.Run();

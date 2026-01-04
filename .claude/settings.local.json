@@ -8,7 +8,10 @@
       "Bash(npm create:*)",
       "Bash(npm install)",
       "Bash(npm install:*)",
-      "Bash(dotnet run:*)"
+      "Bash(dotnet run:*)",
+      "Bash(aws cloudformation describe-stacks:*)",
+      "Bash(aws cloudformation wait:*)",
+      "Bash(cat:*)"
     ]
   }
 }

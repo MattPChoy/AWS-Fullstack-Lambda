@@ -1,2 +1,24 @@
 **/bin/
 **/obj/
+
+# CDK
+infra/node_modules/
+infra/cdk.out/
+infra/*.js
+infra/*.d.ts
+infra/bin/*.js
+infra/bin/*.d.ts
+infra/lib/*.js
+infra/lib/*.d.ts
+
+# Frontend
+frontend/dist/
+frontend/node_modules/
+frontend/.env.production
+
+# IDE
+.idea/
+.vs/
+*.user
+*.suo
+*.DotSettings.user

@@ -20,17 +20,21 @@ public class DynamoDbInitializer
 
         try
         {
-            // Check if table exists
-            var existingTables = await _dynamoDbClient.ListTablesAsync();
-            if (existingTables.TableNames.Contains(tableName))
+            // Try to describe the table to see if it exists
+            try
             {
-                _logger.LogInformation("DynamoDB table '{TableName}' already exists", tableName);
+                var describeResponse = await _dynamoDbClient.DescribeTableAsync(tableName);
+                _logger.LogInformation("DynamoDB table '{TableName}' already exists with status: {Status}",
+                    tableName, describeResponse.Table.TableStatus);
                 return;
+            }
+            catch (ResourceNotFoundException)
+            {
+                // Table doesn't exist, continue to create it
+                _logger.LogInformation("DynamoDB table '{TableName}' not found, creating...", tableName);
             }
 
             // Create table
-            _logger.LogInformation("Creating DynamoDB table '{TableName}'...", tableName);
-
             var request = new CreateTableRequest
             {
                 TableName = tableName,
@@ -56,13 +60,21 @@ public class DynamoDbInitializer
             await _dynamoDbClient.CreateTableAsync(request);
 
             // Wait for table to be active
-            var tableDescription = await WaitForTableToBeActive(tableName);
+            await WaitForTableToBeActive(tableName);
             _logger.LogInformation("DynamoDB table '{TableName}' created successfully", tableName);
+        }
+        catch (ResourceNotFoundException)
+        {
+            // This is expected when table doesn't exist, already handled above
+            throw;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error initializing DynamoDB table '{TableName}'", tableName);
-            throw;
+            // Don't throw - allow app to start even if table initialization fails
+            // This is important for AWS Lambda where table should already exist
+            _logger.LogWarning("Continuing application startup despite table initialization error. " +
+                "Ensure table '{TableName}' exists in your AWS account or DynamoDB Local.", tableName);
         }
     }
 

@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore dependencies
+COPY *.csproj ./
+RUN dotnet add package Amazon.Lambda.AspNetCoreServer && \
+    dotnet restore
+
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime stage - use AWS Lambda base image for .NET
+FROM public.ecr.aws/lambda/dotnet:9
+WORKDIR /var/task
+
+# Copy published app
+COPY --from=build /app/publish .
+
+# Set the Lambda handler
+CMD ["VueCSharpApi::VueCSharpApi.LambdaEntryPoint::FunctionHandlerAsync"]
